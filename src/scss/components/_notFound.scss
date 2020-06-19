@@ -1,0 +1,26 @@
+
+.page-404 {
+  text-align: center;
+  h1 {
+    font-family: sans-serif;
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+  .snail-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .snail-logo {
+    animation: snail-logo-spin infinite 20s linear;
+  }
+}
+@keyframes snail-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

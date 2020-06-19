@@ -1,0 +1,66 @@
+.login-board {
+  box-sizing: border-box;
+  margin: 50px auto;
+  padding: 50px;
+  text-align: center;
+  width: 50%;
+  height: 80%;
+  border-radius: 20px;
+  background-color: $table-color;
+  box-shadow: 0 0 40px $font-color;
+  color: $font-color;
+  h1 {
+    font-weight: 400;
+    font-size: 1.6rem;
+    margin: 10px;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+  form {
+    margin: 10px;
+  }
+  input {
+    width: 250px;
+    height: 30px;
+    margin: 5px;
+  }
+  button {
+    background-color: $buttons-color;
+    color: $screen-color;
+    //height: 1.6rem;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 10px $font-color;
+    outline: none;
+    &:active {
+      box-shadow: inset 0 5px 5px $font-color;
+    }
+  }
+}
+.pwd-forget {
+  font-size: .8rem;
+  text-decoration: none;
+  color: $font-color;
+  &:hover {
+    border-bottom: 1px solid $font-color;
+  }
+}
+.error-message {
+  height: 20px;
+  color: $trash-icon-color;
+}
+
+
+//.clear {
+//  position: absolute;
+//  bottom: 15%;
+//  padding: 3px;
+//}
+//.hidden {
+//  display: none !important;
+//}
