@@ -14,14 +14,14 @@ const Settings = () => {
 
     return (
         <section className="login-board" >
-            <p>Wpisz dwa razy nowe hasło</p>
+            <p>Zmień swoje hasło</p>
             {/*<FirebaseContext.Consumer>*/}
             <form className="form" onSubmit={handleSubmit}>
-                <input type="password" placeholder="wpisz hasło"
+                <input type="password" placeholder="wpisz nowe hasło"
                        value={password}
                        onChange={event => setPassword(event.target.value)}
                 /> <br />
-                <input type="password" placeholder="wpisz hasło"
+                <input type="password" placeholder="wpisz ponownie nowe hasło"
                        value={password2}
                        onChange={event => setPassword2(event.target.value)}
                 /> <br />

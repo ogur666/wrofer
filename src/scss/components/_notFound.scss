@@ -10,6 +10,10 @@
     height: 40vmin;
     pointer-events: none;
   }
+  .nr {
+    font-size: 5rem;
+    color: $warning-color;
+  }
 }
 @media (prefers-reduced-motion: no-preference) {
   .snail-logo {

@@ -3,20 +3,20 @@ import {Link} from "react-router-dom";
 // import Firebase, {FirebaseContext, withFirebase} from "./Firebase"
 import firebase from 'firebase/app';
 import 'firebase/auth';
-// import {auth} from "firebase";
-
-const config = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-};
+// // import {auth} from "firebase";
+//
+// const config = {
+//     apiKey: process.env.REACT_APP_API_KEY,
+//     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+//     databaseURL: process.env.REACT_APP_DATABASE_URL,
+//     projectId: process.env.REACT_APP_PROJECT_ID,
+//     storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+//     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+// };
+// firebase.initializeApp(config);
 
 // const Firebase = (email, password) => {
-    // constructor() {
-    firebase.initializeApp(config);
+// constructor() {
 
 
 const PasswordForget = () => {
@@ -28,27 +28,23 @@ const PasswordForget = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let errorek = "";
         setError("");
         setVisible("");
-        if (mail.length <= 0 || !mail.includes("@")) {
+        if (mail.length === 0 || !mail.includes("@")) {
             setError("Niepoprawny adres e-mail.");
             hideError()
         } else {
             firebase.auth().sendPasswordResetEmail(mail)
-                .catch((error) => {
-                    errorek = error.code;
-                    let errorCode = error.code;
-                // if (errorCode === "auth/user-not-found" || errorCode === "auth/invalid-email") {
-                if (error.code.length > 0 ) {
-                    setError("Nieprawidłowy e-mail")
-                }});
-            if (error.length === 0) {
+                .then(()=>{
                     setError("Wysłano linka na Twój adres e-mail.");
-                    setMail("")}
+                    setMail("")
+                })
+                .catch(() => {
+                    setError("Nieprawidłowy adres e-mail")
+                })
 
-                hideError();
         }
+        hideError();
     };
 
     const hideError = () => {

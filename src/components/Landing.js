@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
+import firebase from "firebase";
+import 'firebase/auth'
 
 const Landing = () => {
     const [login, setLogin] = useState("");
@@ -13,6 +15,16 @@ const handleSubmit = (e) => {
     e.preventDefault();
     if (login.length <= 0 || password.length <= 0) {
         setError("Nieprawidłowy login lub hasło.")
+    } else {
+
+        firebase.auth()
+            .signInWithEmailAndPassword(login, password)
+            .then(()=>{
+                    setLogin("");
+                    setPassword("");
+                    console.log("Zalogowano")
+            })
+            .catch(()=>setError("Nieprawidłowy login lub hasło"))
     }
     setTimeout(() => {
         setVisible("none");
