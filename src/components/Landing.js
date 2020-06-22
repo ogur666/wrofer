@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import firebase from "firebase";
 import 'firebase/auth'
-
+import Example from "../Example";
 const Landing = () => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -48,6 +48,7 @@ const handleSubmit = (e) => {
                 <p className="error-message"><span style={{display:isVisible}}>{error}</span></p>
             </form>
             < Link className="pwd-forget"  to="/pwd_forget">Zapomniałem hasła :-(</Link>
+            <Example/>
         </section>
     )
 };

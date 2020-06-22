@@ -33,11 +33,11 @@ const Navigation = () => (
 );
 
 const NavigationAuth = () => {
-   const [mail, setMail] = useState("");
+   const [user, setUser] = useState("");
 
    useEffect(()=>{
        firebase.auth().onAuthStateChanged((user)=>{
-           user? setMail(user.email): setMail("zaloguj")
+           user? setUser(user.email): setUser("zaloguj")
        })
    },[]);
 
@@ -68,7 +68,7 @@ const NavigationAuth = () => {
                 <Link to="/settings">Ustawienia</Link>
             </li>
             <li>
-                <span>{mail}</span>
+                <span>{user}</span>
             </li>
         </ul>
     );

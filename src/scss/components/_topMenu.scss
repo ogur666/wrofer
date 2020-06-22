@@ -21,7 +21,12 @@
 }
 .li-logo {
   list-style-type: none;
-
+  a {
+    &:hover {
+      text-decoration: none;
+      color: #412;
+    }
+  }
 }
 .main-logo {
   //font-family: "Bad Script";
@@ -35,7 +40,5 @@
   margin-left: 10px;
   text-decoration: none;
   color: #412;
-  &:hover{
-    border-bottom: none;
-  }
+
 }
