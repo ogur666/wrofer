@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 // import SignOutButton from '../SignOut';
 // import * as ROUTES from '../../constants/routes';
 // import { AuthUserContext } from './Session';
@@ -47,25 +47,25 @@ const NavigationAuth = () => {
                 <Link className="main-logo" to="/">WroFER </Link>
             </li>
             <li>
-                <Link to="/">Landing </Link>
+                <NavLink exact to="/" activeStyle={{fontWeight:"700"}}>Landing </NavLink>
             </li>
             <li>
-                <Link to="/sale">Sprzedaż</Link>
+                <NavLink to="/sale" activeStyle={{fontWeight:"700"}}>Sprzedaż</NavLink>
             </li>
             <li>
-                <Link to="/stock">Magazyn</Link>
+                <NavLink to="/stock" activeStyle={{fontWeight:"700"}}>Magazyn</NavLink>
             </li>
             <li>
-                <Link to="/sellers">Handlowcy</Link>
+                <NavLink to="/sellers" activeStyle={{fontWeight:"700"}}>Handlowcy</NavLink>
             </li>
             <li>
-                <Link to="/clients">Klienci</Link>
+                <NavLink to="/clients" activeStyle={{fontWeight:"700"}}>Klienci</NavLink>
             </li>
             <li>
-                <Link to="/statistics">Statystyki</Link>
+                <NavLink to="/statistics" activeStyle={{fontWeight:"700"}}>Statystyki</NavLink>
             </li>
             <li>
-                <Link to="/settings">Ustawienia</Link>
+                <NavLink to="/settings" activeStyle={{fontWeight:"700"}}>Ustawienia</NavLink>
             </li>
             <li>
                 <span>{user}</span>
