@@ -1,0 +1,45 @@
+.input-form {
+  width: 30vw;
+  height: 25vh;
+  display: flex;
+  //justify-content: left;
+  align-items: flex-start;
+  flex-direction: column;
+  input {
+    margin-bottom: 15px;
+    width: 20vw;
+  }
+  button {
+    padding: 0 5px;
+    border-radius: 5px;
+  }
+}
+.list-of-products {
+  width: 50vw;
+  height: 60vh;
+  border-top: 1px solid $font-color;
+  li {
+    margin: 5px;
+  }
+  .list-header {
+    //display: inline-block;
+    font-weight: 700;
+  }
+  .product-name {
+    display: inline-block;
+    width: 25vw;
+  }
+  .product-price {
+    display: inline-block;
+    width: 7vw;
+  }
+  .product-stock {
+    display: inline-block;
+    width: 12vw;
+  }
+  .products-list {
+    &:hover {
+      background-color: $screen-color;
+    }
+  }
+}
