@@ -85,7 +85,7 @@ const Products = () => {
                             <span className="product-name">{e.name}</span>
                             <span className="product-price">{e.price} zł</span>
                             <span className="product-stock">{e.stock} szt</span>
-                        </li> )}
+                        </li>)}
                 </ul>
             </section>
         </main>
