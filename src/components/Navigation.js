@@ -15,7 +15,7 @@ const Navigation = () => {
     const handleCheckSignIn = () => {
            return (user != null) ? <NavigationAuth user={user} /> : <NavigationNonAuth />
     };
-    
+
     return(
         <header>
             {handleCheckSignIn()}
