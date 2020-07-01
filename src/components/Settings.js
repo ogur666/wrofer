@@ -7,15 +7,14 @@ import 'firebase/auth';
 const Settings = () => {
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    let [isVisible, setVisible] = useState("");
-    const [error, setError] = useState("");
+    // let [isVisible, setVisible] = useState("");
+    // const [error, setError] = useState("");
 
     const handleSubmit = (e) => {
     };
     return (
         <section className="login-board" >
             <p>Zmień swoje hasło</p>
-            {/*<FirebaseContext.Consumer>*/}
             <form className="form" onSubmit={handleSubmit}>
                 <input type="password" placeholder="wpisz nowe hasło"
                        value={password}
@@ -26,9 +25,8 @@ const Settings = () => {
                        onChange={event => setPassword2(event.target.value)}
                 /> <br />
                 <button>Gotowe!</button>
-                <p className="error-message"><span style={{display:isVisible}}>{error}</span></p>
+                {/*<p className="error-message"><span style={{display:isVisible}}>{error}</span></p>*/}
             </form>
-            {/*</FirebaseContext.Consumer>*/}
             < Link className="pwd-forget"  to="/">Powrót</Link><br />
             <Logout />
         </section>
@@ -38,11 +36,11 @@ const Settings = () => {
 const Logout = () => {
     const handleSignOut = () =>{
         firebase.auth().signOut()
-    }
+    };
 
     return (
         <button onClick={handleSignOut}>Wyloguj się</button>
     )
-}
+};
 
 export default Settings;

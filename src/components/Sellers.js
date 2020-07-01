@@ -12,8 +12,8 @@ const Sellers = () => {
     const [isAdmin, setAdmin] = useState(false);
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    const [error, setError] = useState("");
-    const [isVisible, setVisible] = useState("");
+    // const [error, setError] = useState("");
+    // const [isVisible, setVisible] = useState("");
 
     const createUser = firebase.functions().httpsCallable('AddUser');
 
@@ -33,12 +33,12 @@ const Sellers = () => {
 
     const addUser = (e) => {
         e.preventDefault();
-        const newUser = {
-            firstname: name,
-            lastname: surname,
-            email: mail,
-            admin: isAdmin
-        };
+        // const newUser = {
+        //     firstname: name,
+        //     lastname: surname,
+        //     email: mail,
+        //     admin: isAdmin
+        // };
 
         createUser({ mail, password })
             .then(console.log)
@@ -58,9 +58,9 @@ const Sellers = () => {
         setMail("");
         setPassword("");
         setPassword2("");
-        setTimeout(() => {
-            setVisible("none");
-        },3000);
+        // setTimeout(() => {
+        //     setVisible("none");
+        // },3000);
     };
 
     const isInvalid =
@@ -80,10 +80,10 @@ const Sellers = () => {
                 <Form.Check type="switch" id="custom-switch" label=" Administrator" disabled={isInvalid} onClick={()=> setAdmin(!isAdmin)}/>
                 <button disabled={isInvalid}>Dodaj</button>
             </form>
-            <p className="error-message"><span style={{display:isVisible}}>{error}</span></p>
-            <p>
+            {/*<p className="error-message"><span style={{display:isVisible}}>{error}</span></p>*/}
+            <ul>
                 {listOfUsers.map((e,i)=><li key={i}>{e.firstname} {e.lastname} {e.email} {e.admin === true?"Admin":"User"}</li> )}
-            </p>
+            </ul>
         </main>
     )
 };
