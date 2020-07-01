@@ -1,4 +1,22 @@
 body {
-  font-family: "Balsamiq Sans", sans-serif;
   background-color: $screen-color;
+}
+.main-container {
+  width: 90vw;
+  height: 80vh;
+  display: flex;
+  //flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: $font-color;
+  margin: auto;
+}
+
+.box {
+  background-color: $table-color;
+  border: none;
+  box-shadow: 0 0 5px $font-color;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
 }
