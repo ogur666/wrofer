@@ -7,8 +7,6 @@ const Products = () => {
     const [listOfProducts, setListOfProducts] = useState([]);
     const [productName, setProductName] = useState("");
     const [productPrice, setProductPrice] = useState("");
-    // const [counterDoc, setCounterDoc] = useState("");
-    // const [counterID, setCounterID] = useState("");
     const [counters, setCounters] = useState("");
 
     useEffect(()=>{
@@ -16,7 +14,6 @@ const Products = () => {
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     setListOfProducts(prevState => [...prevState, doc.data()]);
-        // console.log(doc.data())
                 });
             })
             .catch((err) => {
@@ -25,7 +22,6 @@ const Products = () => {
 
         db.collection('counters').doc('products').get()
             .then(result => {
-                // console.log(result.data());
                 setCounters(result.data())});
     },[db]);
 
@@ -61,25 +57,25 @@ const Products = () => {
         productPrice === '';
 
     return (
-        <main className="container">
+        <main className="main-container">
             <section className="box">
                 <h2>Dodaj nowy produkt</h2>
                 <form className="input-form" onSubmit={handleAddProduct}>
                     <label>Nazwa</label>
                     <input value={productName} onChange={e => setProductName(e.target.value)}/>
                     <label>Cena (zł)</label>
-                    <input value={productPrice} onChange={e => setProductPrice(e.target.value.replace(/\D/g,''))}/>
+                    <input value={productPrice} onChange={e => setProductPrice(e.target.value.replace(/[a-zA-Z<>?/.;:'"\\|\]}[{=+\-_)(*&^%$#@!£§~`\s]/g,''))}/>
                     <button disabled={isInvalid}>Dodaj</button>
                 </form>
             </section>
-            <section className="box">
+            <section className="list-of-products box">
                 <h2>Lista produktów</h2>
-                <ul className="list-of-products">
-                    <li className="list-header">
+                    <article className="list-header">
                         <span className="product-name">Nazwa</span>
                         <span className="product-price">Cena</span>
                         <span className="product-stock">Ilość w magazynie</span>
-                    </li>
+                    </article>
+                <ul className="">
                     {listOfProducts.map(e=>
                         <li className="products-list" key={e.id}>
                             <span className="product-name">{e.name}</span>

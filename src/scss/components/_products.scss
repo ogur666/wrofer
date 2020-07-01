@@ -16,12 +16,12 @@
 .list-of-products {
   width: 50vw;
   height: 60vh;
-  border-top: 1px solid $font-color;
   li {
     margin: 5px;
   }
   .list-header {
-    //display: inline-block;
+    padding-top: 5px;
+    border-top: 1px solid $font-color;
     font-weight: 700;
   }
   .product-name {
