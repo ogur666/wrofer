@@ -1,13 +1,11 @@
 .top-menu {
-  font-family: "Balsamiq Sans", sans-serif;
   background-image: linear-gradient(180deg, #f1f2e7, #8f908a);
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 0 40px $font-color;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   li:nth-child(1n+2) {
-    list-style-type: none;
     font-size: 1.4rem;
     a {
       text-decoration: none;
@@ -19,9 +17,11 @@
     padding: 20px;
     //max-width: 25vw;
   }
+  .active{
+    font-weight: 700;
+  }
 }
 .li-logo {
-  list-style-type: none;
   a {
     &:hover {
       text-decoration: none;
@@ -30,16 +30,11 @@
   }
 }
 .main-logo {
-  //font-family: "Bad Script";
-  //font-family: "Balsamiq Sans";
   font-family: "Charmonman", fantasy;
-  //font-family: "Oregano";
-  //font-family: "Shadows Into Light Two";
   font-weight: 700;
   font-size: 2.7rem;
   margin-right: 60px;
   margin-left: 10px;
   text-decoration: none;
   color: #412;
-
 }
