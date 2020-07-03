@@ -1,0 +1,41 @@
+.show-grid {
+  input {
+    margin: 4px;
+  }
+  .full-name {
+    width: 50vw;
+  }
+  .short-name {
+    width: 30vw;
+  }
+  .street {
+    width: 30vw;
+  }
+  .house-nr {
+    width: 10vw;
+  }
+  .local-nr {
+    width: 10vw;
+  }
+  .city {
+    width: 30vw;
+  }
+  .post-code {
+    width: 10vw;
+  }
+  .country {
+    width: 20vw;
+  }
+  .email {
+    width: 30vw;
+  }
+  .phone {
+    width: 20vw;
+  }
+  .border-line {
+    height: 10px;
+    width: 100%;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #bfc4c3;
+  }
+}
