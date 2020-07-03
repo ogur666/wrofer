@@ -41,7 +41,7 @@ const App = () => {
 
         return (user != null) ?
             <Router>
-                <Navigation />
+                <Navigation user={user}/>
                 <Switch>
                     <Route exact path="/" component={Sale} />
                     <Route path="/clients" component={Clients} />
@@ -56,7 +56,7 @@ const App = () => {
                 </Switch>
             </Router>
             : <Router>
-                <Navigation/>
+                <Navigation user={user}/>
                 <Switch>
                     <Route exact path="/" component={Landing} />
                     <Route path="/settings" component={Logout} />

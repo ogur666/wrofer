@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Logout = () => {
 
     return (
-        <main className="container">
+        <main className="main-container">
             <section>
                 <h1>Wylogowano!</h1>
                 <Link to="/">Zaloguj się ponownie.</Link>

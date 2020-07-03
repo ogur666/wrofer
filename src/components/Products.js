@@ -27,7 +27,6 @@ const Products = () => {
 
     const handleAddProduct = (e) => {
         e.preventDefault();
-        console.log(counters);
         const newCounter ={
             productsDocs: counters.productsDocs + 1,
             productsIDs: counters.productsIDs + 1

@@ -3,14 +3,14 @@ import { Link, NavLink } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-const Navigation = () => {
-    const [user, setUser] = useState("");
+const Navigation = ({user}) => {
+    // const [user, setUser] = useState("");
 
-    useEffect(()=>{
-        firebase.auth().onAuthStateChanged((user)=>{
-            user? setUser(user.email): setUser(null)
-        })
-    },[]);
+    // useEffect(()=>{
+    //     firebase.auth().onAuthStateChanged((user)=>{
+    //         user? setUser(user.email): setUser(null)
+    //     })
+    // },[]);
 
     const handleCheckSignIn = () => {
            return (user != null) ? <NavigationAuth user={user} /> : <NavigationNonAuth />
@@ -31,7 +31,7 @@ const NavigationAuth = ({user}) => {
                 <Link className="main-logo" to="/sale">WroFER </Link>
             </li>
             <li>
-                <NavLink activeClassName="active" to="/sale">Sprzedaż</NavLink>
+                <NavLink activeClassName="active" exact to="/sale">Sprzedaż</NavLink>
             </li>
             <li>
                 <NavLink activeClassName="active" to="/stock">Magazyn</NavLink>
