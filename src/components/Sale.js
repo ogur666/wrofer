@@ -48,13 +48,13 @@ const Sale = () => {
                     <GridColumn field="docNr" title="Nr dokumentu" width="90px" sortable/>
                     <GridColumn field="client" title="Klient" width="150px" sortable/>
                     <GridColumn field="comments" title="Uwagi" width="120px" sortable/>
-                    <GridColumn field="commentsToSellers" title="Uwagi do handlowców" width="120px" sortable/>
+                    {/*<GridColumn field="commentsToSellers" title="Uwagi do handlowców" width="120px" sortable/>*/}
                     <GridColumn field="net1pc" title="Cena netto 1 szt" width="80px" sortable/>
                     <GridColumn field="vat1pc" title="VAT 1 szt" width="80px" sortable/>
                     <GridColumn field="netAll" title="Wartość netto całość" width="80px" sortable/>
                     <GridColumn field="grossAll" title="Wartość brutto całość" width="80px" sortable/>
-                    <GridColumn field="billedCustomer" title="Czy klient rozliczony" width="80px" sortable/>
-                    <GridColumn field="notes" title="Notatki" width="120px" sortable/>
+                    {/*<GridColumn field="billedCustomer" title="Czy klient rozliczony" width="80px" sortable/>*/}
+                    {/*<GridColumn field="notes" title="Notatki" width="120px" sortable/>*/}
                 </DataGrid>
             </section>
         </main>

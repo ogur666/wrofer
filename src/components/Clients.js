@@ -36,7 +36,7 @@ const Clients = () => {
 
     return (
         <main className="main-container">
-            <section className="stock-table box">
+            <section className="stock-table box animate">
                 <AddNewClient onClick={refreshList}/>
                 <DataGrid filterable data={data} columnResizing>
                     <GridColumn field="shortName" title="Nazwa" width="20%" sortable/>

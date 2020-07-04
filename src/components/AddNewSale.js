@@ -8,7 +8,7 @@ import pl from 'date-fns/locale/pl';
 registerLocale('pl', pl);
 
 
-const AddNewSale = () => {
+const AddNewSale = ({onClick}) => {
     const [show, setShow] = useState(false);
     const db = firebase.firestore();
     const [startDate, setStartDate] = useState(new Date());
@@ -25,6 +25,7 @@ const AddNewSale = () => {
     const typeOfDoc = ["Faktura", "Paragon", "WZ"];
     const [selectTypeOfDoc, setSelectTypeOfDoc] = useState("");
     const [docNr, setDocNr] = useState("");
+    const [term, setTerm] = useState("");
     const [client, setClient] = useState("");
     const [listOfClients, setListOfClients] = useState([]);
     const [comments, setComments] = useState("");
@@ -75,37 +76,94 @@ const AddNewSale = () => {
 
     }, [db]);
 
-    // const handleCheckList = ()=> {
-    //     if (typeof onClick === "function") {
-    //         onClick();
-    //     }
-    // };
+    const handleCheckList = ()=> {
+        if (typeof onClick === "function") {
+            onClick();
+        }
+    };
+
+    const handleClick = (e) => {
+        e.preventDefault();
+
+        addList.forEach(e => {
+            let productPrice = "";
+            let id = "";
+            const year = startDate.getFullYear();
+            const month = startDate.getMonth();
+            const day = startDate.getDate() + Number(term);
+            const newCounter ={
+                salesDocs: counters.salesDocs + 1,
+                salesIDs: counters.salesIDs + 1
+            };
+            listOfProducts.forEach(name => {
+
+                if(name.name === e.productName) {
+                    productPrice = name.price;
+                    id = name.id
+                }
+            });
+
+            const newDocument = {
+                id: counters.salesIDs + 1,
+                date: startDate.toISOString().substring(0, 10),
+                product: e.productName,
+                quantity: e.productQuantity,
+                sellType: selectTypeOfSell,
+                payment: selectTypeOfPayment,
+                dateOfPayment: (new Date(year, month, day)).toISOString().substring(0, 10),
+                docType: selectTypeOfDoc,
+                docNr: docNr,
+                client: client,
+                comments: comments,
+                commentsToSellers: "",
+                net1pc: selectTypeOfSell === "Próbka"? 0 : productPrice,
+                vat1pc: (selectTypeOfSell === "Próbka"? 0 : productPrice) * 0.23,
+                netAll: (selectTypeOfSell === "Próbka"? 0 : productPrice) * quantity,
+                grossAll: ((selectTypeOfSell === "Próbka"? 0 : productPrice)+ (selectTypeOfSell === "Próbka"? 0 : productPrice) * 0.23 ) * quantity,
+                billedCustomer: "",
+                notes: "",
+            };
+            console.log(listOfProducts);
+            console.log(id);
+            console.log(newCounter);
+            console.log(newDocument);
+            // db.collection('products')
+            //     .doc(`${id}`)
+            //     .update({stock: firebase.firestore.FieldValue.increment( - Number(e.productQuantity))})
+            //     .catch(error=>console.log(error));
+            // db.collection('counters')
+            //     .doc('sales')
+            //     .update(newCounter)
+            //     .catch(error=>console.log(error));
+            // db.collection('sales')
+            //     .doc(`${counters.stockDocs + 1}`)
+            //     .set(newDocument)
+            //     .then(() => {
+            //         handleClose();
+            //         handleCheckList();
+            //     })
+            //     .catch(error => console.log(error))
+        });
+
+    };
 
     const addNewProduct = () => {
-
+        const newListOfProducts = [...setListOfProducts];
+        const newItem = {
+            productName: product,
+            productQuantity: quantity
+        }
         setAddList( prevState => [
-            ...prevState,
-            <>
-                <select
-                    value={product}
-                    onChange={e => setProduct(e.target.value)}
-                >
-                    <option>Produkt</option>
-                    {listOfProducts.map((e) => <option key={e.id}>{e.name}</option> )}
-                </select>
-                <input
-                    placeholder="ilość"
-                    value={quantity}
-                    onChange={e => setQuantity(e.target.value)}
-                    // style={{width: "50px"}}
-                />
-            </>
-        ]);
+            ...prevState, newItem]
+        );
+        setQuantity("");
+        setListOfProducts(listOfProducts.filter((name) => name.name !== newItem.productName))
         // console.log(addList)
     };
 
-
-    // const isInvalid = selectMove !== 'Wysyłka';
+    const isInvalid =
+        product === '' ||
+        quantity === '';
 
     return (
         <>
@@ -173,15 +231,15 @@ const AddNewSale = () => {
                                 />
                                 <input
                                     placeholder="Termin zapłaty (liczba dni)"
-                                    value={docNr}
-                                    onChange={e => setDocNr(e.target.value)}
+                                    value={term}
+                                    onChange={e => setTerm(e.target.value)}
                                     // style={{width: "120px"}}
                                 />
 
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col xl={3}>
                                 <select
                                     value={seller}
                                     onChange={e => setSeller(e.target.value)}
@@ -196,30 +254,33 @@ const AddNewSale = () => {
                                     placeholder="uwagi"
                                     value={comments}
                                     onChange={e => setComments(e.target.value)}
+                                    style={{width: "506px"}}
                                 />
                             </Col>
                         </Row>
-                        <div className="border-line"> </div>
+
                         <Row>
                             <Col>
+                                <select
+                                    value={product}
+                                    onChange={e => setProduct(e.target.value)}
+                                >
+                                    <option>Produkt</option>
+                                    {listOfProducts.map((e) => <option key={e.id}>{e.name}</option> )}
+                                </select>
+                                <input
+                                    placeholder="ilość"
+                                    value={quantity}
+                                    onChange={e => setQuantity(e.target.value.replace(/\D/g, ''))}
+                                    // style={{width: "50px"}}
+                                />
+                                <button disabled={isInvalid} onClick={addNewProduct}>Dodaj nowy produkt</button>
+                                <div className="border-line"> </div>
                                 <ul>
-                                    <li>
-                                        <select
-                                            value={product}
-                                            onChange={e => setProduct(e.target.value)}
-                                        >
-                                            <option>Produkt</option>
-                                            {listOfProducts.map((e) => <option key={e.id}>{e.name}</option> )}
-                                        </select>
-                                        <input
-                                            placeholder="ilość"
-                                            value={quantity}
-                                            onChange={e => setQuantity(e.target.value)}
-                                            // style={{width: "50px"}}
-                                        />
-                                    </li>
-                                    {addList.map((e,i) =><li key={i}>{e}</li> )}
-                                    <button onClick={addNewProduct}>Dodaj nowy produkt</button>
+                                    {addList.map((e,i) =><li key={i}>
+                                        <span>{e.productName} </span>
+                                        <span> {e.productQuantity} szt</span>
+                                    </li> )}
                                 </ul>
                             </Col>
                         </Row>
@@ -234,7 +295,7 @@ const AddNewSale = () => {
                     </Button>
                     <Button
                         variant="outline-primary"
-                        onClick={handleClose}
+                        onClick={handleClick}
                     >
                         Zapisz i zamknij
                     </Button>

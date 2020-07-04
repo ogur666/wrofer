@@ -69,11 +69,11 @@ const Products = () => {
             </section>
             <section className="list-of-products box">
                 <h2>Lista produktów</h2>
-                    <article className="list-header">
-                        <span className="product-name">Nazwa</span>
-                        <span className="product-price">Cena</span>
-                        <span className="product-stock">Ilość w magazynie</span>
-                    </article>
+                <article className="list-header">
+                    <span className="product-name">Nazwa</span>
+                    <span className="product-price">Cena</span>
+                    <span className="product-stock">Ilość w magazynie</span>
+                </article>
                 <ul className="">
                     {listOfProducts.map(e=>
                         <li className="products-list" key={e.id}>

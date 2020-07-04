@@ -2,6 +2,9 @@
   input {
     margin: 4px;
   }
+  select {
+    margin: 4px;
+  }
   .full-name {
     width: 50vw;
   }
@@ -38,4 +41,9 @@
     margin-bottom: 8px;
     border-bottom: 1px solid #bfc4c3;
   }
+
+}
+.animate datagrid-body f-full {
+  opacity: 0;
+  transition: 2s;
 }
