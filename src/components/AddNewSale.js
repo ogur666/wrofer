@@ -13,6 +13,7 @@ const AddNewSale = ({onClick}) => {
     const db = firebase.firestore();
     const [startDate, setStartDate] = useState(new Date());
     const [counters, setCounters] = useState("");
+    const [stockCounters, setStockCounters] = useState("");
     const [users, setUsers] = useState([]);
     const [listOfProducts, setListOfProducts] = useState([]);
     const [seller, setSeller] = useState("");
@@ -30,6 +31,7 @@ const AddNewSale = ({onClick}) => {
     const [listOfClients, setListOfClients] = useState([]);
     const [comments, setComments] = useState("");
     const [addList, setAddList] = useState([]);
+    const [newListOfProducts, setNewListOfProducts] = useState([]);
 
 
     const handleClose = () => setShow(false);
@@ -51,6 +53,7 @@ const AddNewSale = ({onClick}) => {
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     setListOfProducts(prevState => [...prevState, doc.data()]);
+                    setNewListOfProducts(prevState => [...prevState, doc.data()])
                 });
             })
             .catch((err) => {
@@ -73,7 +76,13 @@ const AddNewSale = ({onClick}) => {
             .catch((err) => {
                 console.log('Błąd bazy danych: ', err);
             });
-
+        db.collection('counters')
+            .doc('stock').get()
+            .then(result => {
+                setStockCounters(result.data())})
+            .catch((err) => {
+                console.log('Błąd bazy danych: ', err);
+            });
     }, [db]);
 
     const handleCheckList = ()=> {
@@ -84,18 +93,31 @@ const AddNewSale = ({onClick}) => {
 
     const handleClick = (e) => {
         e.preventDefault();
+        let salesDocs = counters.salesDocs;
+        let salesIDs = counters.salesIDs;
+        let stockDocs = stockCounters.stockDocs;
+        let stockIDs = stockCounters.stockIDs;
 
         addList.forEach(e => {
+            salesDocs++;
+            salesIDs++;
+            stockDocs++;
+            stockIDs++;
             let productPrice = "";
             let id = "";
             const year = startDate.getFullYear();
             const month = startDate.getMonth();
             const day = startDate.getDate() + Number(term);
             const newCounter ={
-                salesDocs: counters.salesDocs + 1,
-                salesIDs: counters.salesIDs + 1
+                salesDocs: salesDocs,
+                salesIDs: salesIDs
             };
-            listOfProducts.forEach(name => {
+            const newStockCounter = {
+                stockIDs: stockIDs,
+                stockDocs: stockDocs
+            };
+
+            newListOfProducts.forEach(name => {
 
                 if(name.name === e.productName) {
                     productPrice = name.price;
@@ -104,7 +126,7 @@ const AddNewSale = ({onClick}) => {
             });
 
             const newDocument = {
-                id: counters.salesIDs + 1,
+                id: salesIDs,
                 date: startDate.toISOString().substring(0, 10),
                 product: e.productName,
                 quantity: e.productQuantity,
@@ -116,46 +138,67 @@ const AddNewSale = ({onClick}) => {
                 client: client,
                 comments: comments,
                 commentsToSellers: "",
-                net1pc: selectTypeOfSell === "Próbka"? 0 : productPrice,
-                vat1pc: (selectTypeOfSell === "Próbka"? 0 : productPrice) * 0.23,
-                netAll: (selectTypeOfSell === "Próbka"? 0 : productPrice) * quantity,
-                grossAll: ((selectTypeOfSell === "Próbka"? 0 : productPrice)+ (selectTypeOfSell === "Próbka"? 0 : productPrice) * 0.23 ) * quantity,
+                net1pc: selectTypeOfSell === "Próbka"? 0 : Number(productPrice),
+                vat1pc: (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * 0.23,
+                netAll: (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * Number(e.productQuantity),
+                grossAll: ((selectTypeOfSell === "Próbka"? 0 : Number(productPrice))+ (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * 0.23 ) * Number(e.productQuantity),
                 billedCustomer: "",
                 notes: "",
+                seller: seller
             };
-            console.log(listOfProducts);
-            console.log(id);
-            console.log(newCounter);
-            console.log(newDocument);
-            // db.collection('products')
-            //     .doc(`${id}`)
-            //     .update({stock: firebase.firestore.FieldValue.increment( - Number(e.productQuantity))})
-            //     .catch(error=>console.log(error));
-            // db.collection('counters')
-            //     .doc('sales')
-            //     .update(newCounter)
-            //     .catch(error=>console.log(error));
-            // db.collection('sales')
-            //     .doc(`${counters.stockDocs + 1}`)
-            //     .set(newDocument)
-            //     .then(() => {
-            //         handleClose();
-            //         handleCheckList();
-            //     })
-            //     .catch(error => console.log(error))
+            const newMove = {
+                id: stockIDs,
+                date: startDate.toISOString().substring(0, 10),
+                name: e.productName,
+                quantity: e.productQuantity,
+                typeOfMove: selectTypeOfSell,
+                seller: seller,
+                notes: comments
+            };
+
+            // console.log(newListOfProducts);
+            // console.log(listOfProducts);
+            // console.log(id);
+            // console.log(newCounter);
+            // console.log(newDocument);
+            db.collection('products')
+                .doc(`${id}`)
+                .update({stock: firebase.firestore.FieldValue.increment( - Number(e.productQuantity))})
+                .catch(error=>console.log(error));
+            db.collection('counters')
+                .doc('sales')
+                .update(newCounter)
+                .catch(error=>console.log(error));
+            db.collection('stock')
+                .doc(`${stockDocs}`)
+                .set(newMove)
+                .catch(error => console.log(error));
+
+            db.collection('counters')
+                .doc('stock')
+                .update(newStockCounter)
+                .catch(error=>console.log(error));
+
+
+            db.collection('sales')
+                .doc(`${salesDocs}`)
+                .set(newDocument)
+                .then(() => {
+                    handleClose();
+                    handleCheckList();
+                })
+                .catch(error => console.log(error));
+
         });
 
     };
 
     const addNewProduct = () => {
-        const newListOfProducts = [...setListOfProducts];
         const newItem = {
             productName: product,
             productQuantity: quantity
-        }
-        setAddList( prevState => [
-            ...prevState, newItem]
-        );
+        };
+        setAddList( prevState => [...prevState, newItem]);
         setQuantity("");
         setListOfProducts(listOfProducts.filter((name) => name.name !== newItem.productName))
         // console.log(addList)
