@@ -139,9 +139,9 @@ const AddNewSale = ({onClick}) => {
                 comments: comments,
                 commentsToSellers: "",
                 net1pc: selectTypeOfSell === "Próbka"? 0 : Number(productPrice),
-                vat1pc: (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * 0.23,
-                netAll: (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * Number(e.productQuantity),
-                grossAll: ((selectTypeOfSell === "Próbka"? 0 : Number(productPrice))+ (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * 0.23 ) * Number(e.productQuantity),
+                vat1pc: ((selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * 0.23).toFixed(2),
+                netAll: ((selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * Number(e.productQuantity)).toFixed(2),
+                grossAll: (((selectTypeOfSell === "Próbka"? 0 : Number(productPrice))+ (selectTypeOfSell === "Próbka"? 0 : Number(productPrice)) * 0.23 ) * Number(e.productQuantity)).toFixed(2),
                 billedCustomer: "",
                 notes: "",
                 seller: seller
@@ -178,6 +178,8 @@ const AddNewSale = ({onClick}) => {
                 .doc('stock')
                 .update(newStockCounter)
                 .catch(error=>console.log(error));
+            setCounters(newCounter);
+            setStockCounters(newStockCounter);
 
 
             db.collection('sales')
@@ -194,14 +196,27 @@ const AddNewSale = ({onClick}) => {
     };
 
     const addNewProduct = () => {
+        let productPrice = "";
+        listOfProducts.forEach((e) => e.name === product ? productPrice = e.price : null);
         const newItem = {
             productName: product,
-            productQuantity: quantity
+            productQuantity: quantity,
+            productPrice: productPrice
         };
         setAddList( prevState => [...prevState, newItem]);
         setQuantity("");
-        setListOfProducts(listOfProducts.filter((name) => name.name !== newItem.productName))
-        // console.log(addList)
+        setListOfProducts(prevList => prevList.filter((name) => name.name !== newItem.productName));
+
+    };
+    // console.log("render",addList);
+    const removeNewProduct = (e) => {
+        const returnedItem = {
+            name: e.productName,
+            price: e.productPrice
+        }
+        setAddList(addList.filter((name) => name.productName !== e.productName ));
+        setListOfProducts(prevState => [...prevState, returnedItem]);
+        // console.log(listOfProducts);
     };
 
     const isInvalid =
@@ -309,7 +324,7 @@ const AddNewSale = ({onClick}) => {
                                     onChange={e => setProduct(e.target.value)}
                                 >
                                     <option>Produkt</option>
-                                    {listOfProducts.map((e) => <option key={e.id}>{e.name}</option> )}
+                                    {listOfProducts.map((e,i) => <option key={i}>{e.name}</option> )}
                                 </select>
                                 <input
                                     placeholder="ilość"
@@ -320,9 +335,21 @@ const AddNewSale = ({onClick}) => {
                                 <button disabled={isInvalid} onClick={addNewProduct}>Dodaj nowy produkt</button>
                                 <div className="border-line"> </div>
                                 <ul>
-                                    {addList.map((e,i) =><li key={i}>
-                                        <span>{e.productName} </span>
-                                        <span> {e.productQuantity} szt</span>
+                                    {addList.map((e,i) =>
+                                        <li key={i}>
+                                            <Container>
+                                                <Row>
+                                                    <Col xl={4}>
+                                                        <span>{e.productName} </span>
+                                                    </Col>
+                                                    <Col xl={1}>
+                                                        <span> {e.productQuantity} szt </span>
+                                                    </Col>
+                                                    <Col xl={1}>
+                                                        <button onClick={() => removeNewProduct(e)}> Cofnij </button>
+                                                    </Col>
+                                                </Row>
+                                            </Container>
                                     </li> )}
                                 </ul>
                             </Col>

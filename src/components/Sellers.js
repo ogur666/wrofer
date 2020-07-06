@@ -1,21 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import {Form} from "react-bootstrap";
+// import {Form} from "react-bootstrap";
 
 const Sellers = () => {
     const db = firebase.firestore();
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
-    const [mail, setMail] = useState("");
+    // const [mail, setMail] = useState("");
     const [listOfUsers, setListOfUsers] = useState([]);
-    const [isAdmin, setAdmin] = useState(false);
-    const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
+    // const [isAdmin, setAdmin] = useState(false);
+    // const [password, setPassword] = useState("");
+    // const [password2, setPassword2] = useState("");
     // const [error, setError] = useState("");
     // const [isVisible, setVisible] = useState("");
 
-    const createUser = firebase.functions().httpsCallable('AddUser');
+    // const createUser = firebase.functions().httpsCallable('AddUser');
 
 
 
@@ -36,8 +36,8 @@ const Sellers = () => {
         const newUser = {
             firstname: name,
             lastname: surname,
-            email: mail,
-            admin: isAdmin
+            // email: mail,
+            // admin: isAdmin
         };
         db.collection('users')
             .add(newUser)

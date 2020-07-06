@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Button, Modal} from "react-bootstrap";
+import {Button, Modal, Container, Row, Col} from "react-bootstrap";
 import firebase from "firebase";
 import 'firebase/firestore';
 import DatePicker, {registerLocale} from "react-datepicker";
@@ -105,7 +105,8 @@ const AddMove = ({onClick}) => {
                 handleClose();
                 handleCheckList();
             })
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
+        setCounters(newCounter);
     };
 
     const isInvalid = selectMove !== 'Wysyłka';
@@ -120,47 +121,60 @@ const AddMove = ({onClick}) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Dodaj ruch na magazynie</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <span>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={date => setStartDate(date)}
-                            locale="pl"
-                            dateFormat="yyyy.MM.dd"
-                        />
-                    </span>
-                    <select
-                        value={product}
-                        onChange={e => setProduct(e.target.value)}
-                    >
-                        <option>Produkt</option>
-                        {listOfProducts.map((e) => <option key={e.id}>{e.name}</option> )}
-                    </select>
-                    <input
-                        placeholder="ilość"
-                        value={quantity}
-                        onChange={e => setQuantity(e.target.value)}
-                    />
-                    <select
-                        value={selectMove}
-                        onChange={e => setSelectMove(e.target.value)}
-                    >
-                        <option>Ruch</option>
-                        {move.map((e,i) => <option key={i}>{e}</option> )}
-                    </select>
-                    <select
-                        value={seller}
-                        onChange={e => setSeller(e.target.value)}
-                        disabled={isInvalid}
-                    >
-                        <option>Handlowiec</option>
-                        {users.map((e,i) => <option key={i}>{e.firstname} {e.lastname}</option> )}
-                    </select>
-                    <input
-                        placeholder="uwagi"
-                        value={notes}
-                        onChange={e => setNotes(e.target.value)}
-                    />
+                <Modal.Body className="show-grid">
+                    <Container>
+                        <Row>
+                            <Col>
+                                <DatePicker
+                                    selected={startDate}
+                                    onChange={date => setStartDate(date)}
+                                    locale="pl"
+                                    dateFormat="yyyy.MM.dd"
+                                />
+                            </Col>
+                        </Row>
+                        <div className="border-line"> </div>
+                        <Row>
+                            <Col>
+                                <select
+                                    value={product}
+                                    onChange={e => setProduct(e.target.value)}
+                                >
+                                    <option>Produkt</option>
+                                    {listOfProducts.map((e) => <option key={e.id}>{e.name}</option> )}
+                                </select>
+                                <input
+                                    placeholder="ilość"
+                                    value={quantity}
+                                    onChange={e => setQuantity(e.target.value)}
+                                />
+                                <select
+                                    value={selectMove}
+                                    onChange={e => setSelectMove(e.target.value)}
+                                >
+                                    <option>Ruch</option>
+                                    {move.map((e,i) => <option key={i}>{e}</option> )}
+                                </select>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <select
+                                    value={seller}
+                                    onChange={e => setSeller(e.target.value)}
+                                    disabled={isInvalid}
+                                >
+                                    <option>Handlowiec</option>
+                                    {users.map((e,i) => <option key={i}>{e.firstname} {e.lastname}</option> )}
+                                </select>
+                                <input
+                                    placeholder="uwagi"
+                                    value={notes}
+                                    onChange={e => setNotes(e.target.value)}
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button

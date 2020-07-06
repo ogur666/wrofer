@@ -47,14 +47,18 @@
   text-decoration: none;
   color: $font-color;
   &:hover {
-    border-bottom: 1px solid $font-color;
+    color: $font-color;
   }
 }
 .error-message {
   height: 20px;
   color: $error-color;
 }
-
+.main-link {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: $font-color;
+}
 
 //.clear {
 //  position: absolute;

@@ -77,7 +77,24 @@ const AddNewClient = ({onClick}) => {
             seller: seller
         };
 
-        if (nip.length !==11 && nip.length > 0) {
+        // function isValidNip(nip) {
+        //     if(typeof nip !== 'string')
+        //         return false;
+        //
+        //     nip = nip.replace(/[\ \-]/gi, '');
+        //
+        //     let weight = [6, 5, 7, 2, 3, 4, 5, 6, 7];
+        //     let sum = 0;
+        //     let controlNumber = parseInt(nip.substring(9, 10));
+        //     let weightCount = weight.length;
+        //     for (let i = 0; i < weightCount; i++) {
+        //         sum += (parseInt(nip.substr(i, 1)) * weight[i]);
+        //     }
+        //
+        //     return sum % 11 === controlNumber;
+        // }
+
+        if (nip.length !==10 && nip.length > 0) {
             setError("Nieprawidłowy NIP!")
         } else {
             db.collection('counters')
@@ -92,7 +109,8 @@ const AddNewClient = ({onClick}) => {
                     handleClose();
                     handleCheckList();
                 })
-                .catch(error => console.log(error))
+                .catch(error => console.log(error));
+            setCounters(newCounter);
         }
         setTimeout(() => {
             setError("");

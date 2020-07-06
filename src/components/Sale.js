@@ -40,7 +40,7 @@ const Sale = () => {
                     <GridColumn field="id" title="Nr transakcji" width="80px" sortable/>
                     <GridColumn field="date" title="Data" width="90px" sortable/>
                     <GridColumn field="seller" title="Handlowiec" width="130px" sortable/>
-                    <GridColumn field="product" title="Nazwa artykułu" width="160px" sortable/>
+                    <GridColumn field="product" title="Nazwa artykułu" width="200px" sortable/>
                     <GridColumn field="quantity" title="ilość sprzedana" width="90px" sortable/>
                     <GridColumn field="sellType" title="Typ sprzedaży" width="90px" sortable/>
                     <GridColumn field="payment" title="Płatność" width="100px" sortable/>
