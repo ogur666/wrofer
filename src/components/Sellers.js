@@ -75,7 +75,7 @@ const Sellers = () => {
     return (
         <main className="main-container">
             <section className="box">
-                <h2>Dodaj nowego handlowca</h2>
+                <h2>Dodaj nowego przedstawiciela</h2>
                 <form className="input-form" onSubmit={addUser}>
                     <input type="text" value={name} placeholder="imię" onChange={event => setName(event.target.value)}/>
                     <input type="text" value={surname} placeholder="nazwisko" onChange={event => setSurname(event.target.value)}/><br/>

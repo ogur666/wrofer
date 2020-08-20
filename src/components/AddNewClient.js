@@ -233,12 +233,12 @@ const AddNewClient = ({onClick}) => {
                         <div className="border-line"> </div>
                         <Row>
                             <Col xl={8}>
-                                <span>Przypisz klientowi handlowca: </span>
+                                <span>Przypisz klientowi przedstawiciela: </span>
                                 <select
                                     value={seller}
                                     onChange={e => setSeller(e.target.value)}
                                 >
-                                    <option>Handlowiec</option>
+                                    <option>Przedstawiciel</option>
                                     {users.map((e,i) => <option key={i}>{e.firstname} {e.lastname}</option> )}
                                 </select>
                             </Col>

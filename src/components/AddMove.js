@@ -164,7 +164,7 @@ const AddMove = ({onClick}) => {
                                     onChange={e => setSeller(e.target.value)}
                                     disabled={isInvalid}
                                 >
-                                    <option>Handlowiec</option>
+                                    <option>Przedstawiciel</option>
                                     {users.map((e,i) => <option key={i}>{e.firstname} {e.lastname}</option> )}
                                 </select>
                                 <input

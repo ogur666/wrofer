@@ -45,7 +45,7 @@ const Clients = () => {
                     <GridColumn field="telephoneNr" title="Nr telefonu" width="10%" sortable/>
                     <GridColumn field="email" title="E-mail" width="10%" sortable/>
                     <GridColumn field="NIP" title="NIP" width="10%" sortable/>
-                    <GridColumn field="seller" title="Handlowiec" width="16%" sortable/>
+                    <GridColumn field="seller" title="Przedstawiciel" width="16%" sortable/>
                 </DataGrid>
             </section>
         </main>

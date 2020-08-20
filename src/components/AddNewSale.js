@@ -303,13 +303,13 @@ const AddNewSale = ({onClick}) => {
                                     onChange={e => setSeller(e.target.value)}
                                     // disabled={isInvalid}
                                 >
-                                    <option>Handlowiec</option>
+                                    <option>Przedstawiciel</option>
                                     {users.map((e,i) => <option key={i}>{e.firstname} {e.lastname}</option> )}
                                 </select>
                             </Col>
                             <Col>
                                 <input
-                                    placeholder="uwagi"
+                                    placeholder="uwagi do dokumentu"
                                     value={comments}
                                     onChange={e => setComments(e.target.value)}
                                     style={{width: "506px"}}

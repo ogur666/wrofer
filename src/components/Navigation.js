@@ -40,7 +40,7 @@ const NavigationAuth = ({user}) => {
                 <NavLink activeClassName="active" to="/products">Produkty</NavLink>
             </li>
             <li>
-                <NavLink activeClassName="active" to="/sellers">Handlowcy</NavLink>
+                <NavLink activeClassName="active" to="/sellers">Przedstawiciele</NavLink>
             </li>
             <li>
                 <NavLink activeClassName="active" to="/clients">Klienci</NavLink>

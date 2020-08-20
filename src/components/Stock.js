@@ -42,7 +42,7 @@ const  Stock = () => {
                     <GridColumn field="name" title="Nazwa produktu" width="25%" sortable/>
                     <GridColumn field="quantity" title="Ilość" width="5%" sortable />
                     <GridColumn field="typeOfMove" title="Typ ruchu" width="10%" sortable />
-                    <GridColumn field="seller" title="Handlowiec" width="15%" sortable/>
+                    <GridColumn field="seller" title="Przedstawiciel" width="15%" sortable/>
                     <GridColumn field="notes" title="Uwagi" width="16%" sortable/>
                 </DataGrid>
             </section>
